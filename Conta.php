@@ -2,15 +2,48 @@
 class Conta
 {
     //Definir os dados da classe Conta
-    public string $titularCpf;
-    public string $nomeTitular;
-    public float $saldo;
+    private string $titularCpf;
+    private string $nomeTitular;
+    private float $saldo;
 
+
+    //Getters e Setters
+
+    public function getTitularCpf(): string 
+    {
+        return $this->titularCpf;
+    }
+
+    public function setTitularCpf($titularCpf): void
+    {   
+        $this->titularCpf = $titularCpf;
+    }
+
+    public function getNomeTitular(): string 
+    {
+        return $this->nomeTitular;
+    }
+
+    public function setNomeTitular($nomeTitular): void
+    {
+        $this->nomeTitular = $nomeTitular;
+    }
+
+    public function getSaldo(): float
+    {
+        return $this->saldo;
+    }
+
+    public function setSaldo($saldo): void 
+    {
+        $this->saldo = $saldo;
+    }
+    
     //Método para sacar
     public function sacar(float $valor): void
     {
         if ($this->temSaldo($valor)) {
-            $this->diminuiValor($valor);
+            $this->saldo -= $valor;
             echo "Saque realizado com sucesso" . PHP_EOL;
         } else {
             $this->erroTransacao();
@@ -20,7 +53,7 @@ class Conta
     public function depositar(float $valor): void
     {
         if ($valor > 0) {
-            $this->aumentaValor($valor);
+            $this->saldo +=($valor);
         } else {
             $this->erroTransacao();
         }
@@ -29,8 +62,8 @@ class Conta
     public function transfere(Conta $conta, float $valor): void
     {
         if ($this->temSaldo($valor)) {
-            $this->diminuiValor($valor);
-            $conta->aumentaValor($valor);
+            $this->sacar($valor);
+            $conta->depositar($valor);
         } else {
             $this->erroTransacao();
         }
@@ -39,16 +72,6 @@ class Conta
     private function temSaldo(float $valor): bool
     {
         return $this->saldo >= $valor;
-    }
-
-    private function aumentaValor($valor): void
-    {
-        $this->saldo += $valor;
-    }
-
-    private function diminuiValor($valor): void
-    {
-        $this->saldo -= $valor;
     }
 
     //Mensagem padrão para caso qualquer operação não seja realizada
@@ -66,7 +89,3 @@ class Conta
     }
 
 }
-
-
-
-
