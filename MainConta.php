@@ -6,11 +6,10 @@ require 'Conta.php';
 $acc1 = new Conta();
 $acc2 = new Conta();
 
-$acc1->depositar(1500);
-$acc2->depositar(12);
+$acc1->deposita(1500);
+$acc2->deposita(12);
 
 
-echo "Acc1, " . PHP_EOL;
 
 
 

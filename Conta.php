@@ -34,13 +34,9 @@ class Conta
         return $this->saldo;
     }
 
-    public function setSaldo($saldo): void 
-    {
-        $this->saldo = $saldo;
-    }
-    
+     
     //Método para sacar
-    public function sacar(float $valor): void
+    public function saca(float $valor): void
     {
         if ($this->temSaldo($valor)) {
             $this->saldo -= $valor;
@@ -50,7 +46,7 @@ class Conta
         }
     }
 
-    public function depositar(float $valor): void
+    public function deposita(float $valor): void
     {
         if ($valor > 0) {
             $this->saldo +=($valor);
@@ -62,8 +58,8 @@ class Conta
     public function transfere(Conta $conta, float $valor): void
     {
         if ($this->temSaldo($valor)) {
-            $this->sacar($valor);
-            $conta->depositar($valor);
+            $this->saca($valor);
+            $conta->deposita($valor);
         } else {
             $this->erroTransacao();
         }
