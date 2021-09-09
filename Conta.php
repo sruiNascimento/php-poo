@@ -1,21 +1,20 @@
 <?php
 
+require 'Titular.php';
+
 class Conta
 {
     //Definir os dados da classe Conta
-    private string $titularCpf;
-    private string $nomeTitular;
+    private Titular $titular;
     private float $saldo;
     //atributo static, pois é da classe 
     private static $totalContas = 0;
     //criando atributo código do banco
     private static $codigoBanco = 123;
     //Construtor
-    public function __construct(string $titularCpf, string $nomeTitular)
+    public function __construct(Titular $titular)
     {
-        $this->validaNome($nomeTitular);
-        $this->titularCpf = $titularCpf;
-        $this->nomeTitular = $nomeTitular;
+        $this->titular = $titular;
         $this->saldo = 0;
         //Forma de acessa e manipular um atributo de classe
         //ClassName :: attr
@@ -36,22 +35,13 @@ class Conta
 
     public function getTitularCpf(): string 
     {
-        return $this->titularCpf;
+        return $this->titular->getCpf();
     }
 
-    public function setTitularCpf($titularCpf): void
-    {   
-        $this->titularCpf = $titularCpf;
-    }
-
+    
     public function getNomeTitular(): string 
     {
-        return $this->nomeTitular;
-    }
-
-    public function setNomeTitular($nomeTitular): void
-    {
-        $this->nomeTitular = $nomeTitular;
+        return $this->titular->getNome();
     }
 
     public function getSaldo(): float
@@ -114,18 +104,9 @@ class Conta
     //Função para apresentar todos os atributos dessa classe
     public function getToString(): string
     {
-        return  "Titular: $this->nomeTitular" . PHP_EOL .
-                "Código Banco: " . self::$codigoBanco . PHP_EOL .
-                "CPF: $this->titularCpf" . PHP_EOL . 
+        return  "Código Banco: " . self::$codigoBanco . PHP_EOL .
+                $this->titular->getToString() . 
                 "Saldo R$ $this->saldo" . PHP_EOL;
-    }
-
-    private function validaNome($nome): void
-    {
-        if (strlen($nome) < 2) {
-            echo "Nome inválido, pois nome precisa conter pelo menos 3 caracteres" . PHP_EOL;
-            exit();
-        }
     }
 
 }

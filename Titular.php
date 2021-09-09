@@ -1,10 +1,13 @@
 <?php
+
+require 'CPF.php';
+
 class Titular
 {
-    private string $cpf;
+    private CPF $cpf;
     private string $nome;
 
-    public function __construct(string $cpf, string $nome) 
+    public function __construct(CPF $cpf, string $nome) 
     {
         $this->validaNome($nome);
         $this->cpf = $cpf;
@@ -13,7 +16,7 @@ class Titular
 
     public function getCpf(): string
     {
-        return $this->cpf;
+        return $this->cpf->getCpf();
     }
 
     public function getNome(): string
@@ -23,7 +26,7 @@ class Titular
 
     public function getToString(): string
     {
-        return  "CPF: $this->cpf" . PHP_EOL . 
+        return  "CPF: ". $this->cpf->getCpf() . PHP_EOL . 
                 "Nome: $this->nome" . PHP_EOL;
     }
 
