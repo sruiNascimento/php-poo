@@ -24,6 +24,14 @@ class Conta
         self::$totalContas++;
     }
 
+    //Destruct irá apagar da memória, as instâncias que não tiverem referências
+    //Ao final de toda a execução, ele irá apagar da memória todas as instâncias
+    public function __destruct()
+    {   
+        echo "Instâncias sem referências" . PHP_EOL;
+        self::$totalContas--;
+    }
+
     //Getters e Setters
 
     public function getTitularCpf(): string 
